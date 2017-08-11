@@ -2631,6 +2631,16 @@ var EditorViewModel = (function() {
       if (self.editorMode()) {
         self.selectedNotebook().fetchHistory(); // Js error if notebook did not have snippets
       }
+      if (newVal == 'notebook') {
+    	// Split statements
+    	//self.selectedNotebook().snippets.push(self.selectedNotebook().snippets()[0]);
+    	self.selectedNotebook().type('notebook');
+    	self.selectedNotebook().newSnippet('hive')
+      } else {
+    	// Aggreg statements
+    	self.selectedNotebook().snippets.pop();
+    	self.selectedNotebook().type('query-hive');
+      }
     });
     self.editorTypeTitle = ko.pureComputed(function () {
       var foundInterpreter = $.grep(options.languages, function (interpreter) {
